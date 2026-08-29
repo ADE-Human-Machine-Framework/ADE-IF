@@ -8,194 +8,155 @@
 
 ---
 
-## About ADE-IF
-
-**ADE-IF — Identity Framework** is a specialized framework within the ADE Human-Machine Framework for representing, referencing, verifying, and relating identity information across human, organizational, digital, and machine environments.
-
-ADE-IF is built upon the foundational concepts established by **ADE-Core**.
-
-Its purpose is not to create a single universal identity database or require individuals to carry all information about themselves.
-
-Instead, ADE-IF provides a common semantic structure through which identity-related information can be referenced, verified, and interpreted while allowing authoritative information to remain under the control or jurisdiction of the appropriate information source.
-
----
-
 ## 1. Purpose
 
-ADE-IF provides a framework for representing identity and identity-related relationships in a consistent manner across independent systems and jurisdictions.
+**ADE-IF — Identity Framework** defines the foundational architecture for representing identity-related information within the ADE Human-Machine Framework.
 
-The framework is intended to support situations where identity information may be distributed across multiple authoritative sources.
+ADE-IF is intended to provide a common semantic foundation for identifying, referencing, and verifying Entities while allowing authoritative information to remain under the control of the systems or jurisdictions responsible for maintaining it.
 
-For example, information relating to an individual may exist within:
-
-* A national government
-* A provincial or state authority
-* A foreign government
-* A financial institution
-* An educational institution
-* An employer
-* A healthcare or service organization
-* A trusted identity provider
-* A device or digital system
-
-ADE-IF provides a semantic method for relating these sources without requiring all underlying information to be copied into a single system.
+The framework is designed to support human, organizational, digital, device, and other identifiable Entities without requiring all identity information to be stored in a single system.
 
 ---
 
 ## 2. Relationship to ADE-Core
 
-ADE-IF is a specialized framework built upon ADE-Core.
+ADE-IF builds upon the foundational concepts established by ADE-Core.
 
-Conceptually:
+These include:
 
-```text
-ADE Human-Machine Framework
-│
-└── ADE-Core
-    │
-    ├── Entity
-    ├── Object
-    ├── Event
-    ├── Action
-    ├── State
-    ├── Attribute
-    ├── Time
-    ├── Location
-    ├── Relationship
-    └── Intent
-          │
-          └── ADE-IF
-              Identity Framework
-```
+* Entity
+* Object
+* Event
+* Action
+* State
+* Attribute
+* Time
+* Location
+* Relationship
+* Intent
 
-ADE-IF uses ADE-Core concepts rather than redefining them.
+Identity information should therefore be represented using the common semantic structures established by ADE-Core.
 
-For example, an identity may be associated with an **Entity**, while identity-related changes may be represented through **Events**, **Relationships**, **States**, **Attributes**, and **Time**.
+ADE-IF should extend ADE-Core rather than redefine its foundational concepts.
 
 ---
 
-## 3. Identity Is Not the Same as Information About Identity
+## 3. Identity as a Reference
 
-ADE-IF distinguishes between an Entity and information that describes, identifies, verifies, or authorizes that Entity.
+ADE-IF distinguishes between an **Entity** and the information used to identify or reference that Entity.
+
+An identifier may provide a reference to an Entity without requiring every system to possess or store all information associated with that Entity.
 
 Conceptually:
 
 ```text
 Entity
    │
-   ├── Identity Reference
+   ├── Identifier
    │
    ├── Attributes
    │
    ├── Relationships
    │
-   ├── Identity Evidence
-   │
-   └── Authorization Context
+   └── Authoritative Information Sources
 ```
 
-Information about an Entity may exist in multiple independent systems.
-
-The existence of multiple information sources does not necessarily mean that the information must be duplicated into a single identity record.
+An identifier therefore does not necessarily contain the complete identity record.
 
 ---
 
 ## 4. Distributed Identity Information
 
-ADE-IF is designed to support identity information that is distributed across independent authoritative sources.
+Identity-related information may exist across multiple authoritative systems.
 
 For example:
 
 ```text
-                    Identity Reference
-                           │
-             ┌─────────────┼─────────────┐
-             │             │             │
-             ▼             ▼             ▼
-        Canada Source   South Africa   Other Source
-             │             │             │
-          Citizenship   Citizenship    Attribute
-          Information   Information    Information
+                    Entity
+                      │
+              ┌───────┼────────┐
+              │       │        │
+              ▼       ▼        ▼
+          Jurisdiction  Organization  Other Authority
+              │       │        │
+              ▼       ▼        ▼
+           Information Sources
 ```
 
-A system requesting identity information may reference the appropriate source rather than requiring every source to surrender or duplicate its complete information.
+ADE-IF allows systems to determine where relevant information is maintained rather than requiring all information to be duplicated into a single identity repository.
 
-This allows identity information to remain within the jurisdiction or organization responsible for maintaining it.
+A system requesting identity-related information should obtain only the information necessary for the authorized purpose.
 
 ---
 
-## 5. Jurisdiction and Authority
+## 5. Authority and Ownership
 
-Identity information may be governed by different jurisdictions and authorities.
+ADE-IF recognizes that different information may have different authoritative sources.
 
-ADE-IF therefore distinguishes between:
-
-* The Entity to which information relates
-* The information itself
-* The authority responsible for that information
-* The jurisdiction in which the information is maintained
-* The purpose for which the information is requested
-* The authorization under which the information may be accessed
-
-For example, an individual may have citizenship information maintained by more than one country.
-
-Conceptually:
+For example:
 
 ```text
 Entity
   │
-  ├── Citizenship Relationship
-  │        │
-  │        ├── Authority A
-  │        │
-  │        └── Authority B
+  ├── Citizenship
+  │      └── Authoritative Jurisdiction
   │
-  └── Other Identity Information
+  ├── Employment
+  │      └── Authoritative Organization
+  │
+  ├── Professional Credential
+  │      └── Authoritative Issuer
+  │
+  └── Device Identity
+         └── Authoritative System
 ```
 
-ADE-IF does not assume that all identity information has a single jurisdictional owner.
+The system responsible for maintaining a particular attribute or record may therefore be different from the system requesting that information.
+
+ADE-IF does not assume that one organization or jurisdiction is authoritative for every aspect of an Entity's identity.
 
 ---
 
 ## 6. Reference Rather Than Duplication
 
-ADE-IF supports the principle that identity-related information does not necessarily need to be physically copied between systems.
+ADE-IF is intended to support reference-based information exchange where appropriate.
 
-A system may receive a reference indicating that additional authoritative information exists elsewhere.
+A requesting system may receive:
+
+* A verified identifier
+* A reference to an authoritative source
+* A specific verified attribute
+* A verification result
+* Other information required for the authorized purpose
+
+without necessarily receiving the complete underlying identity record.
 
 Conceptually:
 
 ```text
 Request
-   │
-   ▼
+   ↓
 Identity Reference
-   │
-   ├── Required information available
-   │
-   └── Additional authoritative source available
-                 │
-                 ▼
-          Authorized request
-                 │
-                 ▼
-          Required information
+   ↓
+Authoritative Source
+   ↓
+Authorized Information
+   ↓
+Requesting System
 ```
 
-Only information necessary for the authorized purpose should be requested or disclosed where practical.
-
-This approach may reduce unnecessary duplication of sensitive information while allowing systems to establish sufficient understanding for a particular purpose.
+This approach may reduce unnecessary duplication of sensitive identity information.
 
 ---
 
 ## 7. Minimum Necessary Information
 
-ADE-IF should support the principle of requesting and disclosing only the information necessary for a defined purpose.
+ADE-IF should support the principle that systems should obtain only the identity information necessary for the purpose being performed.
 
 For example, a system may need to establish:
 
 ```text
-Is this person authorized to enter?
+Is this Entity authorized?
 ```
 
 without requiring:
@@ -203,93 +164,51 @@ without requiring:
 ```text
 Full identity record
 Complete address
-Complete citizenship history
-Unrelated personal information
+Unrelated attributes
+Unnecessary historical information
 ```
 
-The identity framework should therefore distinguish between:
-
-* Establishing identity
-* Verifying a particular attribute
-* Establishing authorization
-* Providing complete identity information
-
-These are not necessarily the same requirement.
+The required information should therefore be determined by the purpose and authorization of the request.
 
 ---
 
-## 8. Identity and Verification
+## 8. Verification and Authorization
 
-ADE-IF recognizes that identifying an Entity and verifying a claim about that Entity are different functions.
+ADE-IF distinguishes between:
 
-Conceptually:
+**Identity**
 
-```text
-Identity Reference
-       │
-       ▼
-Claim
-       │
-       ▼
-Verification
-       │
-       ▼
-Result
-```
+> What Entity is being referenced?
 
-A verification result may establish that a particular claim is supported by an authorized source without requiring disclosure of all information held by that source.
+**Verification**
 
-Examples may include:
+> What evidence or authoritative source supports the claimed identity or attribute?
 
-```text
-Identity verified
-Citizenship verified
-Age requirement satisfied
-Credential valid
-Authorization valid
-```
+**Authorization**
 
-The detailed mechanisms for verification will be developed through subsequent ADE-IF specifications.
+> Is this Entity, system, or actor permitted to perform the requested operation?
 
----
+These concepts should not automatically be treated as equivalent.
 
-## 9. Authentication and Authorization
-
-ADE-IF distinguishes identity-related concepts from authorization.
-
-Knowing or verifying who an Entity is does not automatically establish what that Entity is permitted to do.
-
-Conceptually:
+For example:
 
 ```text
 Identity
-   ↓
-Authentication / Verification
-   ↓
+    ↓
+Verification
+    ↓
 Authorization
-   ↓
+    ↓
 Permitted Action
 ```
 
-Authorization may depend on:
-
-* Role
-* Relationship
-* Context
-* Time
-* Location
-* Purpose
-* Policy
-* Authority
-* Other applicable conditions
-
-Detailed authorization structures may be developed within ADE-IF or related ADE standards.
+A system may be able to establish that an Entity is authorized for a particular operation without receiving the Entity's complete identity information.
 
 ---
 
-## 10. Human and Non-Human Entities
+## 9. Human and Non-Human Entities
 
-ADE-IF may support identity and authorization for different types of Entities.
+ADE-IF should support identity representation for different classes of Entities.
 
 Examples include:
 
@@ -298,386 +217,274 @@ Examples include:
 * Devices
 * Machines
 * Software systems
-* Services
-* Other non-human Entities
+* Digital agents
+* Other identifiable Entities
 
-The framework should avoid assuming that every Entity has the same identity requirements.
+Where appropriate, ADE-IF may distinguish the nature or class of the Entity providing, requesting, or participating in information.
+
+This allows systems to distinguish between human, organizational, device, and other sources without assuming that every identity is a human identity.
+
+---
+
+## 10. Authorization Levels
+
+ADE-IF may support structured authorization levels where different actors have different authority over an operation.
 
 For example:
 
 ```text
-Human
-   └── identity and authorization context
-
-Device
-   └── device identity and authorization context
-
-System
-   └── system identity and authorization context
+Authorization Level 1
+        │
+        ├── Full authorized control
+        │
+        ▼
+Authorization Level 2
+        │
+        ├── Limited control
+        │
+        ▼
+Authorization Level 3
+        │
+        ├── Operational control
+        │
+        ▼
+Authorization Level 4
+        │
+        └── Restricted control
 ```
 
-The distinction between human and non-human sources may be further developed through ADE identity and authorization specifications.
+The exact meaning and number of authorization levels should be defined through future ADE standards rather than assumed by ADE-Core.
+
+Authorization may also support multiple authorized actors acting together where required.
+
+For example:
+
+```text
+Human Level 3
+      +
+Human Level 3
+      ↓
+Emergency Authorization
+      ↓
+Pause System
+```
+
+Such mechanisms may be particularly relevant to safety-critical or autonomous systems.
 
 ---
 
-## 11. Identity Does Not Require Physical Possession
+## 11. Identity Without Continuous Possession
 
-ADE-IF does not assume that an individual must physically carry a complete identity credential or identity record.
+ADE-IF does not require an Entity to continuously carry or present a complete identity credential.
 
-An Entity may be verified through authorized interaction with an authoritative information source.
+A verification process may instead establish identity or authorization through an authorized interaction with an authoritative information source.
 
 Conceptually:
 
 ```text
 Entity
-   │
-   ▼
-Identity Reference
-   │
-   ▼
-Authorized Verification Request
-   │
-   ▼
+   ↓
+Identity Claim
+   ↓
+Verification Request
+   ↓
 Authoritative Source
-   │
-   ▼
-Required Result
+   ↓
+Verification Result
 ```
 
-This allows identity verification to be separated from the physical possession of a particular identity document or credential.
+This may allow identity verification even when an Entity does not possess a particular digital identity credential.
 
-The framework may still support physical and digital credentials where they are appropriate.
+The specific mechanisms for such verification are outside this foundational document.
 
 ---
 
 ## 12. Privacy and Data Minimization
 
-ADE-IF is intended to support privacy-preserving identity architectures.
+ADE-IF should support privacy-preserving identity architecture.
 
-Identity systems should consider:
+Identity systems should avoid unnecessary disclosure or duplication of information.
 
-* Data minimization
-* Purpose limitation
-* Authorization
-* Source authority
-* Information sensitivity
-* Jurisdiction
-* Retention
-* Disclosure requirements
-* Auditability
+Where possible:
 
-The framework should not require information to be centralized merely for the purpose of interoperability.
+```text
+Need
+ ↓
+Required Information
+ ↓
+Verification
+ ↓
+Result
+```
 
-Interoperability should be achievable through shared semantic understanding and authorized information exchange.
+should be preferred over:
+
+```text
+Need
+ ↓
+Complete Identity Record
+ ↓
+Copy Everything
+```
+
+Privacy requirements, data protection obligations, and jurisdiction-specific requirements remain applicable.
 
 ---
 
-## 13. Identity as a Relationship
+## 13. Cross-Jurisdiction Identity
 
-Identity information may involve relationships between an Entity and one or more authoritative sources.
+An Entity may have identity-related information maintained by multiple jurisdictions.
+
+For example:
+
+```text
+Entity
+  │
+  ├── Jurisdiction A
+  │      └── Identity Information
+  │
+  └── Jurisdiction B
+         └── Identity Information
+```
+
+ADE-IF should allow these sources to remain independently authoritative while providing a common structure for referencing and relating the information.
+
+The existence of multiple authoritative sources does not necessarily require those sources to merge their underlying databases.
+
+---
+
+## 14. Identity References
+
+ADE-IF may use references that indicate the existence of related information maintained elsewhere.
 
 Conceptually:
 
 ```text
-Entity
-   │
-   ├── identified by ──> Authority
-   │
-   ├── recognized by ──> Jurisdiction
-   │
-   ├── associated with ──> Credential
-   │
-   └── verified by ──> Authorized Source
+ADE Identity Reference
+        │
+        ├── Source
+        ├── Identifier
+        ├── Authority
+        ├── Information Type
+        └── Access / Authorization Conditions
 ```
 
-These relationships may have:
+The reference may indicate that additional information exists without exposing that information to every system that encounters the reference.
+
+---
+
+## 15. Identity and ADE Relationships
+
+Identity information may participate in ADE Relationships.
+
+For example:
+
+```text
+Person
+   │
+   ├── citizen of ──> Jurisdiction
+   │
+   ├── employed by ──> Organization
+   │
+   └── authorized for ──> Operation
+```
+
+The relationships themselves may have:
 
 * Time
 * Location
-* State
-* Authority
 * Source
-* Validity
-* Purpose
-* Authorization context
+* Verification status
+* Authorization conditions
+* Other contextual information
 
-This allows identity information to be understood as contextual rather than as a single static record.
-
----
-
-## 14. Identity Lifecycle
-
-Identity-related information may change over time.
-
-Examples include:
-
-```text
-Created
-   ↓
-Active
-   ↓
-Updated
-   ↓
-Suspended
-   ↓
-Revoked
-```
-
-Different identity relationships may have different lifecycles.
-
-For example, a credential may expire while the underlying Entity continues to exist.
-
-ADE-IF should therefore distinguish between:
-
-```text
-Entity
-      ≠
-Credential
-      ≠
-Identity Attribute
-      ≠
-Authorization
-```
-
-Detailed lifecycle models will be defined through future ADE-IF specifications.
+These relationships should remain compatible with ADE-Core.
 
 ---
 
-## 15. Unavailable and Incomplete Identity Information
+## 16. Relationship to Self-Sovereign Identity
 
-ADE-IF follows the ADE-Core principle:
+ADE-IF may be compatible with principles associated with **Self-Sovereign Identity (SSI)** while not requiring a single identity architecture.
 
-> **Represent what is known without inventing what is unknown.**
+SSI commonly emphasizes concepts such as:
 
-Identity information may be:
+* Individual control
+* Portable credentials
+* Verifiable claims
+* Selective disclosure
+* Decentralized verification
 
-* Known
-* Unknown
-* Unavailable
-* Not applicable
-* Not yet determined
-* Restricted from disclosure
+ADE-IF approaches identity from a broader architectural perspective.
 
-These conditions should remain semantically distinguishable.
+It allows identity information to remain with authoritative sources while providing standardized references, verification, relationships, and authorization mechanisms.
 
-For example:
+ADE-IF therefore does not require identity information to be:
 
-```text
-Citizenship
-    Canada = Verified
-    South Africa = Information available from authoritative source
-```
+* Centralized
+* Fully duplicated
+* Stored exclusively in a user's wallet
+* Controlled exclusively by one authority
 
-does not require the requesting system to possess the complete underlying records.
-
-Similarly:
-
-```text
-Identity information = Restricted
-```
-
-does not necessarily mean:
-
-```text
-Identity information = Does not exist
-```
+Specific compatibility with SSI technologies may be evaluated through future ADE profiles or implementations.
 
 ---
 
-## 16. Credentials and Identity References
+## 17. Security and Trust
 
-ADE-IF may support credentials and identity references without requiring them to contain complete identity information.
+Identity information and verification mechanisms must account for security and trust.
 
-A credential may provide:
+Future ADE specifications may define mechanisms for:
 
-* An identity reference
-* A verification mechanism
-* A claim
-* An authorization context
-* A reference to an authoritative source
-* Evidence that a particular condition has been satisfied
+* Authentication
+* Verification
+* Cryptographic proof
+* Credential validation
+* Source trust
+* Authorization
+* Revocation
+* Expiration
+* Auditability
 
-The credential itself does not necessarily become the complete identity record.
-
----
-
-## 17. Self-Sovereign Identity Compatibility
-
-ADE-IF is intended to be compatible with decentralized and self-sovereign identity approaches where appropriate.
-
-However, ADE-IF does not require all identity information to be:
-
-* Stored on the individual device
-* Controlled exclusively by the individual
-* Centralized in one authority
-* Presented as a complete identity record
-
-ADE-IF instead focuses on the semantic relationships between:
-
-```text
-Entity
-Identity
-Authority
-Source
-Claim
-Verification
-Credential
-Authorization
-Context
-```
-
-Different identity architectures may implement these relationships differently while remaining compatible with the ADE semantic model.
+These mechanisms are intentionally not fully defined in this foundational draft.
 
 ---
 
-## 18. Interoperability
+## 18. Foundational Principle
 
-ADE-IF is intended to allow independent identity systems to communicate using common semantic structures.
+> **Identity should establish a trusted reference to an Entity without requiring unnecessary duplication or disclosure of information.**
 
-For example:
-
-```text
-System A
-   │
-   ▼
-ADE Identity Meaning
-   │
-   ▼
-System B
-```
-
-Systems may use different:
-
-* Databases
-* Identity providers
-* Credentials
-* APIs
-* Technologies
-* Jurisdictions
-* Security mechanisms
-
-while preserving a common semantic interpretation.
+ADE-IF is intended to provide a common semantic foundation through which identity, verification, authority, and authorization can be represented across independent systems and jurisdictions.
 
 ---
 
-## 19. Security and Trust
-
-Identity information may require mechanisms for establishing trust in:
-
-* The information source
-* The identity reference
-* The credential
-* The verification process
-* The authorization
-* The integrity of exchanged information
-
-ADE-IF provides the semantic foundation for representing these relationships.
-
-Specific cryptographic, authentication, credential, and trust mechanisms are implementation and standards concerns that may be defined by subsequent specifications.
-
----
-
-## 20. Relationship to Other ADE Frameworks
-
-ADE-IF may interact with other ADE frameworks.
-
-Examples include:
-
-### ADE-HTF
-
-Identity information may have temporal context.
-
-```text
-Identity Attribute
-      │
-      └── valid during ──> Time Interval
-```
-
-### ADE-LF
-
-Identity or authorization may depend upon Location.
-
-```text
-Authorization
-      │
-      └── valid at ──> Location
-```
-
-### ADE-USLF
-
-Identity concepts may require common semantic representations across languages and systems.
-
-```text
-Human Meaning
-      ↓
-ADE Semantic Structure
-      ↓
-Identity Interpretation
-```
-
-Additional ADE frameworks may interact with ADE-IF as the architecture develops.
-
----
-
-## 21. Foundational Identity Principle
-
-> **Identity information should be understandable and verifiable across systems without requiring unnecessary centralization, duplication, or disclosure of information.**
-
-ADE-IF therefore seeks to separate:
-
-```text
-Who or what the Entity is
-        ↓
-What information is held about the Entity
-        ↓
-Who is authoritative for that information
-        ↓
-What can be verified
-        ↓
-What is authorized to be disclosed
-```
-
-This separation is intended to support interoperability while respecting distributed authority, jurisdiction, privacy, and information ownership.
-
----
-
-## 22. Future Development
+## 19. Future Development
 
 Future ADE-IF specifications may define:
 
 * Identity identifiers
-* Identity references
-* Identity attributes
+* Identity classes
+* Human and non-human classification
 * Identity claims
-* Identity credentials
 * Verification mechanisms
 * Authentication
-* Authorization
-* Authority and jurisdiction
-* Source and provenance
-* Evidence
-* Trust relationships
-* Credential lifecycle
-* Revocation
-* Delegation
-* Privacy and disclosure rules
-* Minimal-disclosure mechanisms
-* Human and non-human identity
-* Device identity
+* Authorization levels
+* Delegated authority
+* Multi-party authorization
 * Emergency authorization
-* Identity interoperability
+* Credential references
+* Source authority
+* Cross-jurisdiction identity
+* Identity lifecycle
+* Revocation
+* Expiration
+* Privacy-preserving verification
+* Selective disclosure
+* Provenance
+* Confidence
+* Trust models
+* Interoperability with existing identity standards
 
-These mechanisms should build upon ADE-Core and the foundational principles established by ADE-IF.
-
----
-
-## Status
-
-ADE-IF is currently a **Foundational Draft**.
-
-The concepts described in this document are intended to establish an architectural foundation for further examination, use-case testing, technical challenge, and standards development.
-
-They should not yet be interpreted as finalized technical specifications.
+These mechanisms should be developed through the ADE standards-development process and tested against real-world use cases.
 
 ---
 
