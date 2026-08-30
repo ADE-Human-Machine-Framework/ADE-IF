@@ -36,30 +36,81 @@ The purpose of this model is to allow identity-related information to be underst
 
 ADE-IF builds upon the foundational concepts established by ADE-Core.
 
-The primary ADE-Core concept used by ADE-IF is **Entity**.
+ADE-Core establishes the general semantic meaning of foundational concepts including:
+
+* Entity
+* Identity
+* Authority
+* Ability
+* Authorization
+* Source
+* Time
+* Location
+* Relationship
+* Intent
+* Assertion
+* Provenance
+* Confidence
+
+ADE-IF specializes these concepts for identity-related use cases without redefining their foundational meaning.
 
 Conceptually:
 
 ```text
 ADE-Core
    │
-   └── Entity
+   ├── Entity
+   ├── Identity
+   ├── Authority
+   ├── Ability
+   └── Authorization
           │
           ▼
        ADE-IF
           │
-          ├── Identity
           ├── Identity Reference
+          ├── Identity Identifier
           ├── Identity Attribute
           ├── Identity Claim
           ├── Credential
-          ├── Authority
+          ├── Authority specialization
           ├── Verification
           ├── Authentication
-          └── Authorization
+          ├── Permission
+          └── Authorization specialization
 ```
 
-ADE-IF should not redefine the foundational meaning of Entity.
+ADE-IF therefore provides the identity-specific structures and mechanisms required to apply the ADE-Core semantic model to identity, authentication, verification, permission, and authorization.
+
+### Core Boundary
+
+**Identity** remains a foundational ADE-Core concept. ADE-IF provides additional structures for representing and managing identity information.
+
+**Authority** remains a foundational ADE-Core concept. ADE-IF specializes Authority for identity-related authorities, issuers, jurisdictions, and identity governance.
+
+**Ability** describes what an Entity can do. It should not be interpreted as permission to perform an Action.
+
+**Permission** describes what an Entity is permitted to do within a defined identity or access-control context. Permission is specialized within ADE-IF.
+
+**Authentication** is an ADE-IF concept that establishes identity assurance or association with an Identity. ADE-Core does not prescribe authentication mechanisms.
+
+**Authorization** is a foundational ADE-Core concept representing a determination that an Action is permitted or denied within a defined context. ADE-IF specializes Authorization for identity and access-control purposes.
+
+The distinction is therefore:
+
+```text
+Identity
+   ↓
+Authentication / Verification
+   ↓
+Authority / Ability / Permission
+   ↓
+Authorization
+   ↓
+Action
+```
+
+ADE-IF must preserve these distinctions and should not treat Identity, Authentication, Authority, Ability, Permission, and Authorization as interchangeable concepts.
 
 ---
 
@@ -235,31 +286,105 @@ Detailed claim and evidence models may be defined by future ADE specifications.
 
 ---
 
-# 8. Authority
+## 8. Authority
 
-An **Authority** is an Entity recognized within a defined context as responsible for establishing, maintaining, issuing, validating, or controlling particular identity-related information.
+**Authority** is a foundational ADE-Core concept representing recognized standing, responsibility, role, jurisdiction, or control associated with an Entity within a defined context.
 
-Examples may include:
+ADE-IF does not redefine the foundational meaning of Authority. It specializes Authority for identity-related contexts.
 
-* Government authority
-* Organization
-* Educational institution
-* Financial institution
-* Employer
-* Credential issuer
-* Other recognized authority
+Within ADE-IF, Authority may describe the recognized standing of an Entity or organization to:
 
-Authority is contextual.
+* Issue or manage identities
+* Establish or attest to identity information
+* Verify identity claims
+* Issue or validate credentials
+* Establish identity-related relationships
+* Delegate identity-related responsibility
+* Perform other recognized identity functions
 
-An Entity may be authoritative for one type of information without being authoritative for all information concerning an Entity.
+Authority may be associated with:
 
-Conceptually:
+* An Entity
+* An Identity
+* An Organization
+* A Jurisdiction
+* A Relationship
+* A Credential
+* A Source
+
+Authority may be:
+
+* Delegated
+* Time-limited
+* Conditional
+* Restricted by jurisdiction
+* Restricted by purpose
+* Restricted by relationship
+* Revoked or suspended
+
+Authority does not automatically establish that an Entity is permitted to perform every Action associated with that authority.
+
+For example:
+
+```text
+Organization
+    │
+    └── Authority
+          │
+          └── Issue Identity Credentials
+```
+
+The existence of this Authority does not necessarily authorize the organization to perform unrelated Actions.
+
+### Authority and Identity
+
+An identity-related Authority may be associated with a recognized Source that is authoritative for a particular category of information.
+
+For example:
+
+```text
+Source
+   │
+   ├── Identity Authority
+   │
+   └── Assertion
+         │
+         └── Identity information
+```
+
+Authority therefore provides context for why a Source, Entity, or organization may be recognized as authoritative for a particular identity-related purpose.
+
+### Authority and Authorization
+
+Authority and Authorization remain distinct.
 
 ```text
 Authority
-   │
-   └── authoritative for ──> Information
+    ↓
+recognized standing or responsibility
+
+Authorization
+    ↓
+determination that a specific Action
+is permitted within a defined context
 ```
+
+An Entity may possess Authority without being authorized to perform a particular Action.
+
+Authorization may consider Authority together with Identity, Authentication, Permission, Ability, context, and applicable rules.
+
+### ADE-Core Relationship
+
+ADE-Core defines the general semantic meaning of Authority.
+
+ADE-IF defines identity-specific structures and mechanisms through which Authority may be represented, delegated, verified, or applied.
+
+ADE-IF must therefore preserve the distinction between:
+
+* **Authority** — recognized standing, responsibility, role, jurisdiction, or control.
+* **Ability** — what an Entity can do.
+* **Permission** — what an Entity is permitted to do.
+* **Authorization** — whether a specific Action is permitted within a defined context.
 
 ---
 
