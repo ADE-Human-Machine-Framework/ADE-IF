@@ -570,31 +570,130 @@ Verification of one attribute does not necessarily verify every attribute associ
 
 # 15. Authentication
 
-**Authentication** is the process of establishing that an Entity is associated with a presented identity, credential, identifier, or authentication factor within a defined context.
+**Authentication** is the process of establishing that an actor can demonstrate control of, or association with, an Identity.
 
-Authentication is distinct from identification.
+Authentication is an ADE-IF concept built upon the foundational **Identity** concept defined by ADE-Core.
 
-Conceptually:
+Authentication does not create, redefine, or replace the Identity itself.
+
+## 15.1 Authentication Relationship
+
+The general relationship is:
 
 ```text
-Identifier
-     │
-     ▼
-Authentication
-     │
-     ▼
-Identity Association
+Entity
+   │
+   └── Identity
+         │
+         ▼
+   Authentication
+         │
+         ▼
+   Identity Assurance
 ```
 
-Authentication does not automatically establish authorization.
+Authentication may establish that an actor is able to demonstrate control of a particular Identity or credential.
+
+Authentication may use one or more mechanisms, including:
+
+* Knowledge factors
+* Possession factors
+* Biometric factors
+* Cryptographic credentials
+* Physical credentials
+* Digital credentials
+* Other recognized authentication mechanisms
+
+## 15.2 Authentication and Identity
+
+Identity and Authentication remain distinct concepts.
+
+```text
+Identity
+    =
+reference to an Entity
+
+Authentication
+    =
+process of establishing control of,
+or association with, that Identity
+```
+
+Possessing an identifier does not necessarily establish control of the corresponding Identity.
+
+Similarly, successful Authentication does not by itself establish that an actor is authorized to perform a particular Action.
+
+## 15.3 Authentication and Authorization
+
+Authentication and Authorization are separate concepts that may be related but must not be conflated.
+
+```text
+Identity
+    ↓
+Authentication
+    ↓
+Authorization
+    ↓
+Action
+```
+
+Authentication provides identity assurance or establishes association with an Identity.
+
+Authorization determines whether a specific Action is permitted within a defined context.
+
+An authenticated actor may therefore be denied authorization.
 
 For example:
 
 ```text
-Authenticated Entity
-        ≠
-Automatically Authorized Entity
+Identity
+    ↓
+Authenticated
+    ↓
+Requested Action
+    ↓
+Authorization
+    ↓
+DENIED
 ```
+
+## 15.4 Authentication Assurance
+
+Authentication may produce an assurance result indicating the degree to which control of, or association with, an Identity has been established.
+
+The assurance result may depend on:
+
+* Authentication method
+* Credential type
+* Verification process
+* Evidence available
+* Source
+* Security requirements
+* Applicable rules
+
+ADE-IF may define standardized authentication assurance levels where required.
+
+## 15.5 Authentication Status
+
+An authentication result may be represented as:
+
+* Successful
+* Failed
+* Pending
+* Expired
+* Revoked
+* Not performed
+* Unknown
+
+The meaning and lifecycle of these states may be further defined by applicable ADE-IF specifications.
+
+## 15.6 Security Boundary
+
+ADE-IF may define the technical mechanisms, protocols, credentials, cryptographic methods, assurance levels, and security requirements used to implement Authentication.
+
+ADE-Core does not prescribe these mechanisms.
+
+Authentication therefore remains an ADE-IF specialization that establishes identity assurance while preserving the foundational distinction between Identity and Authorization.
 
 ---
 
