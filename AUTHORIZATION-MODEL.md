@@ -40,9 +40,33 @@ Authorization should remain distinct from identity, verification, and authentica
 
 The ADE-IF Authorization Model builds upon the foundational concepts established by ADE-Core and the identity concepts established by ADE-IF.
 
+ADE-Core establishes the general semantic foundation for:
+
+* Entity
+* Identity
+* Authority
+* Ability
+* Authorization
+* Action
+* State
+* Event
+* Time
+* Location
+* Relationship
+* Intent
+* Source
+* Assertion
+* Provenance
+* Confidence
+
+ADE-IF specializes these concepts for identity, authentication, permission, and access-control contexts.
+
 Authorization commonly involves relationships between:
 
 * Entity
+* Identity
+* Authority
+* Ability
 * Action
 * State
 * Event
@@ -51,16 +75,24 @@ Authorization commonly involves relationships between:
 * Relationship
 * Intent
 
-as defined by ADE-Core.
+as defined or founded by ADE-Core.
 
-Authorization also interacts with ADE-IF concepts such as:
+ADE-IF provides specialized structures and mechanisms including:
 
-* Identity
 * Identity Reference
 * Identity Claim
 * Verification
 * Authentication
-* Authority
+* Permission
+* Restriction
+* Delegation
+* Override
+* Emergency Authority
+* Authorization Conditions
+* Authorization Context
+* Authorization Decisions
+* Authorization Sources
+* Authorization Lifecycles
 
 Conceptually:
 
@@ -68,29 +100,68 @@ Conceptually:
 ADE-Core
     │
     ├── Entity
+    ├── Identity
+    ├── Authority
+    ├── Ability
+    ├── Authorization
     ├── Action
     ├── State
     ├── Event
     ├── Time
-    └── Location
+    ├── Location
+    ├── Relationship
+    └── Intent
             │
             ▼
         ADE-IF
             │
-            ├── Identity
+            ├── Identity specialization
             ├── Verification
             ├── Authentication
-            └── Authority
-                    │
-                    ▼
-          Authorization Model
-                    │
-                    ├── Permission
-                    ├── Restriction
-                    ├── Delegation
-                    ├── Override
-                    ├── Conditions
-                    └── Authorization Decision
+            ├── Permission
+            ├── Restriction
+            ├── Delegation
+            ├── Override
+            ├── Conditions
+            └── Authorization specialization
+```
+
+### Core Boundary
+
+**Identity** is a foundational ADE-Core concept. ADE-IF provides identity-specific structures and mechanisms.
+
+**Authority** is a foundational ADE-Core concept. ADE-IF specializes Authority for identity and access-control contexts.
+
+**Ability** describes what an Entity can do. It does not by itself establish that the Entity is permitted to perform an Action.
+
+**Permission** describes what an Entity is permitted to do within a defined authorization context.
+
+**Authorization** is a foundational ADE-Core concept representing a determination that an Action is permitted or denied within a defined context. ADE-IF provides specialized authorization structures and mechanisms.
+
+**Authentication** is an ADE-IF concept used to establish control of, or association with, an Identity. ADE-Core does not prescribe authentication mechanisms.
+
+The resulting conceptual relationship is:
+
+```text
+Identity
+    │
+    ▼
+Authentication
+    │
+    ▼
+Authority / Ability / Permission
+    │
+    ▼
+Authorization
+    │
+    ▼
+Action
+```
+
+These concepts may participate in the same authorization process but must remain semantically distinguishable.
+
+ADE-IF therefore extends ADE-Core rather than redefining its foundational concepts.
+
 ---
 
 ## 3. Authority and Authorization
@@ -313,7 +384,7 @@ This allows authorization to be represented as a contextual relationship rather 
 
 ### Authorization Is Not a Measure of Trustworthiness
 
-Authorization should not automatically be interpreted as a measure of an Entity's general trustworthiness, identity certainty, capability, or value.
+Authorization should not automatically be interpreted as a measure of an Entity's general trustworthiness, identity certainty, , or value.
 
 For example:
 
@@ -566,34 +637,52 @@ Authorization and permission therefore establish whether an Action may be perfor
 
 ---
 
-### 4.5 Permission and Capability
+### 4.5 Permission and Ability
 
-Permission should be distinguished from capability.
+Permission should be distinguished from **Ability**.
 
-An Entity may possess the technical capability to perform an Action without being authorized to do so.
+**Ability** describes what an Entity can do, while **Permission** describes what an Entity is permitted to do within a defined authorization context.
+
+An Entity may possess the Ability to perform an Action without having Permission to do so.
 
 For example:
 
 ```text
-System Capability
-       │
-       └── Can execute Shutdown
-```
-
-does not necessarily mean:
-
-```text
 Entity
-       │
-       └── Authorized to execute Shutdown
+   │
+   ├── Ability
+   │      └── Shutdown System
+   │
+   └── Permission
+          └── Not Granted
 ```
 
-Similarly, an Entity may be authorized to request an Action while lacking the technical capability to execute it directly.
+Similarly, an Entity may have Permission to request or initiate an Action while lacking the Ability to execute that Action directly.
 
-Conceptually:
+For example:
 
 ```text
-Capability
+Human Operator
+   │
+   ├── Ability
+   │      └── Request Shutdown
+   │
+   └── Permission
+          └── Request Shutdown
+```
+
+while:
+
+```text
+Human Operator
+   └── Ability to directly execute Shutdown
+          = No
+```
+
+Therefore:
+
+```text
+Ability
     ≠
 Permission
     ≠
@@ -601,6 +690,30 @@ Authorization
 ```
 
 These concepts may interact but should remain distinguishable.
+
+**Ability** is a foundational ADE-Core concept describing what an Entity can do.
+
+**Permission** is an ADE-IF authorization concept describing what an Entity is permitted to do within a defined scope and context.
+
+**Authorization** is the determination that a specific Action is permitted or denied within that context.
+
+Conceptually:
+
+```text
+Ability
+   │
+   └── What can be done
+
+Permission
+   │
+   └── What is permitted
+
+Authorization
+   │
+   └── Is this specific Action permitted now?
+```
+
+ADE-IF should therefore use **Ability** when describing an Entity's capabilities and **Permission** when describing an authorization grant.
 
 ---
 
