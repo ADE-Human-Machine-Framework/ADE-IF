@@ -5,7 +5,7 @@
 **Status:** Foundational Draft
 **Repository:** ADE-IF
 **Version:** 0.1.0
-**Challenge Basis:** `IDENTITY-MODEL.md` and `USE-CASES.md`
+**Challenge Basis:** `IDENTITY-MODEL.md`, `USE-CASES.md`, and `AUTHORIZATION-MODEL.md`
 
 ---
 
@@ -13,7 +13,7 @@
 
 This document records the initial technical challenge of the ADE Identity Framework (ADE-IF) against the real-world scenarios defined in `USE-CASES.md`.
 
-The purpose of the challenge is to determine whether the concepts defined by the ADE-IF Identity Model can represent practical identity, verification, authorization, privacy, distributed information, and cross-jurisdiction situations.
+The purpose of the challenge is to determine whether the concepts defined by the ADE-IF Identity Model and Authorization Model can represent practical identity, verification, authorization, privacy, distributed information, and cross-jurisdiction situations.
 
 The challenge is intended to identify:
 
@@ -24,7 +24,7 @@ The challenge is intended to identify:
 * Relationships requiring clarification
 * Requirements for future specifications
 
-This document does not itself modify the ADE-IF Identity Model.
+This document does not itself modify the ADE-IF foundational models.
 
 ---
 
@@ -37,12 +37,14 @@ IDENTITY-MODEL.md
         ↓
 USE-CASES.md
         ↓
+AUTHORIZATION-MODEL.md
+        ↓
 Challenge
         ↓
 Findings
 ```
 
-A finding does not automatically require a change to the foundational model.
+A finding does not automatically require a change to a foundational model.
 
 Each finding should be examined further before any modification is made.
 
@@ -841,11 +843,915 @@ It is to discover where the model fails, becomes ambiguous, creates unnecessary 
 
 ---
 
+# 26. Authorization Model Challenge
+
+## 26.1 Purpose
+
+The ADE-IF Authorization Model was reviewed against the same foundational use cases to determine whether its combined concepts can represent authorization without collapsing Authority, Permission, Restriction, Context, Delegation, Override, or other authorization concepts into a single status.
+
+The review covers Sections 1–13 of `AUTHORIZATION-MODEL.md`.
+
+The Authorization Model was evaluated as a single conceptual model rather than as isolated definitions.
+
+---
+
+# 27. Authorization Model Coherence
+
+### Result
+
+**PASS WITH FURTHER REQUIREMENTS**
+
+The combined model establishes the following conceptual relationship:
+
+```text
+Entity
+   │
+   ├── Identity
+   │
+   ├── Authority
+   │
+   └── Authorization Context
+            │
+            ├── Action
+            ├── Resource
+            ├── Time
+            ├── Location
+            ├── State
+            ├── Purpose
+            ├── Relationship
+            ├── Jurisdiction
+            └── Conditions
+                    │
+                    ▼
+              Authorization
+                    │
+              ┌─────┴─────┐
+              ▼           ▼
+         Permission   Restriction
+              │           │
+              └─────┬─────┘
+                    ▼
+          Effective Authorization
+                    │
+                    ▼
+                  Action
+```
+
+The model maintains distinctions between:
+
+```text
+Identity
+Authority
+Authorization
+Permission
+Restriction
+Capability
+Context
+Action
+Execution
+```
+
+### Finding
+
+No fundamental architectural contradiction was identified.
+
+However, several relationships require further formalization before becoming technical specifications.
+
+---
+
+# 28. Authority Is Not Authorization
+
+### Result
+
+**PASS**
+
+The model successfully distinguishes the source or capacity of authority from authorization to perform a specific Action.
+
+Conceptually:
+
+```text
+Authority
+    ≠
+Authorization
+```
+
+An Entity may possess authority over a system, resource, or responsibility without being authorized to perform every Action within that scope.
+
+### Finding
+
+This distinction should remain foundational.
+
+---
+
+# 29. Permission Is Not Capability
+
+### Result
+
+**PASS**
+
+The model distinguishes technical capability from permission.
+
+Conceptually:
+
+```text
+Capability
+    ≠
+Permission
+    ≠
+Authorization
+```
+
+An Entity or system may technically be capable of performing an Action without being authorized to do so.
+
+Conversely, an Entity may be authorized to request an Action without possessing the technical capability to execute it.
+
+### Finding
+
+This distinction should remain foundational.
+
+---
+
+# 30. Permission and Restriction
+
+### Result
+
+**PASS WITH FURTHER REQUIREMENTS**
+
+The model allows an Entity to possess a Permission while simultaneously being subject to one or more Restrictions.
+
+Conceptually:
+
+```text
+Permission
+     +
+Restriction
+     +
+Context
+     ↓
+Effective Authorization
+```
+
+A Permission should therefore not automatically override a Restriction.
+
+### Challenge Finding
+
+The interaction between conflicting Permissions and Restrictions requires future formalization.
+
+Questions include:
+
+* Which restriction takes precedence?
+* Can a restriction be temporary?
+* Can a restriction override a permission?
+* Can a permission override another restriction?
+* Who establishes precedence?
+
+These questions should be resolved through future authorization specifications or applicable policy frameworks.
+
+---
+
+# 31. Authorization Context
+
+### Result
+
+**PASS WITH FURTHER REQUIREMENTS**
+
+Authorization is treated as contextual rather than as a permanent property of an Entity.
+
+Relevant contextual elements may include:
+
+* Action
+* Resource
+* Time
+* Location
+* State
+* Purpose
+* Relationship
+* Jurisdiction
+* Emergency status
+* Authority
+* Conditions
+
+### Finding
+
+The model provides sufficient conceptual support for contextual authorization.
+
+However, the broader ADE question concerning whether **Context** should become an explicit reusable semantic structure remains open.
+
+This should be examined across ADE-Core and other ADE frameworks.
+
+---
+
+# 32. Delegation
+
+### Result
+
+**PASS WITH FURTHER REQUIREMENTS**
+
+The model permits authorization to be delegated without necessarily transferring the underlying authority.
+
+Conceptually:
+
+```text
+Authority
+    │
+    ▼
+Entity A
+    │
+    │ Delegates
+    ▼
+Entity B
+    │
+    ▼
+Permission
+```
+
+Delegated authorization should remain constrained by the authority, scope, restrictions, and conditions applicable to the delegation.
+
+### Challenge Findings
+
+Future specifications should determine:
+
+* Whether delegation can be delegated again
+* Maximum delegation depth
+* Delegation scope
+* Delegation expiration
+* Delegation revocation
+* Delegation of only selected permissions
+* Delegation across jurisdictions
+* Delegation across Entity types
+
+### Preliminary Observation
+
+No fundamental contradiction was identified.
+
+---
+
+# 33. Override
+
+### Result
+
+**PASS WITH FURTHER REQUIREMENTS**
+
+The model supports an override mechanism for situations in which defined conditions justify temporarily changing an otherwise applicable restriction.
+
+Conceptually:
+
+```text
+Restriction
+      │
+      ▼
+Normal Operation
+      │
+      ▼
+Action Prohibited
+```
+
+may become:
+
+```text
+Emergency Condition
+      │
+      ▼
+Additional Authorization
+      │
+      ▼
+Override
+      │
+      ▼
+Action Permitted
+```
+
+### Challenge Finding
+
+Override must not become an implicit mechanism for unrestricted authority.
+
+Future specifications should define:
+
+* Who may override
+* What may be overridden
+* Under what conditions
+* Duration of override
+* Required approvals
+* Whether multiple authorities are required
+* Whether override actions require recording or audit evidence
+* How override termination is represented
+
+---
+
+# 34. Emergency Authorization
+
+### Result
+
+**PASS WITH FURTHER REQUIREMENTS**
+
+The model supports emergency authorization in which additional authority or conditions may become applicable.
+
+An emergency does not automatically create unrestricted authority.
+
+Emergency authorization may require:
+
+```text
+Emergency Condition
+        +
+Additional Authority
+        +
+Defined Action
+        +
+Defined Conditions
+        ↓
+Emergency Authorization
+```
+
+### Finding
+
+The conceptual model is sufficient to continue development.
+
+The lifecycle and governance of emergency authorization remain future specification areas.
+
+---
+
+# 35. Multi-Party Authorization
+
+### Result
+
+**PASS WITH FURTHER REQUIREMENTS**
+
+The model supports Actions requiring more than one authorized Entity.
+
+For example:
+
+```text
+Entity A
+    +
+Entity B
+    ↓
+Required Authorization
+    ↓
+Action
+```
+
+This can represent:
+
+* Multiple approvals
+* Multiple authorized humans
+* Different authorization levels
+* Required Entity types
+* Required relationships
+* Sequential authorization
+
+### Challenge Finding
+
+Future specifications should determine how ADE represents:
+
+* Minimum number of participants
+* Required participant types
+* Quorum
+* Ordering
+* Failure
+* Withdrawal
+* Conflicting decisions
+* Replacement participants
+
+---
+
+# 36. Authorization Does Not Guarantee Execution
+
+### Result
+
+**PASS**
+
+The model correctly distinguishes authorization from successful execution.
+
+Conceptually:
+
+```text
+Authorization
+      ↓
+Action Requested
+      ↓
+System Evaluation
+      ↓
+Action Executed
+```
+
+An authorized Action may still fail because of:
+
+* System State
+* Safety requirements
+* Resource availability
+* Technical limitations
+* Higher-priority restrictions
+* Other applicable conditions
+
+Therefore:
+
+```text
+Authorized
+    ≠
+Successfully Executed
+```
+
+### Finding
+
+This distinction should remain part of the ADE authorization model.
+
+---
+
+# 37. Authorization and Information Availability
+
+### Result
+
+**PASS**
+
+The model remains compatible with distributed information and authoritative sources.
+
+An authorization decision may depend upon information that is:
+
+```text
+Verified
+Not Verified
+Unknown
+Unavailable
+Expired
+Revoked
+```
+
+Therefore:
+
+```text
+Unable to Determine
+    ≠
+Denied
+```
+
+### Finding
+
+Future authorization specifications should preserve this distinction.
+
+A failure to obtain required information should not automatically be interpreted as evidence that authorization is denied.
+
+---
+
+# 38. Human and Non-Human Authorization
+
+### Result
+
+**PASS**
+
+The model can apply authorization to different Entity classes, including:
+
+```text
+Human
+Organization
+Device
+Machine
+System
+Service
+Digital Agent
+```
+
+Entity classification remains distinct from authorization.
+
+For example:
+
+```text
+Human
+    ≠
+Authorized Human
+```
+
+and:
+
+```text
+Device
+    ≠
+Authorized Device
+```
+
+### Finding
+
+No fundamental contradiction identified.
+
+---
+
+# 39. Privacy and Minimum Necessary Disclosure
+
+### Result
+
+**PASS WITH FURTHER REQUIREMENTS**
+
+The authorization model remains compatible with the ADE-IF principle that authorization does not necessarily require disclosure of all underlying identity information.
+
+A requesting system may receive only the information or result necessary to evaluate the requested Action.
+
+Conceptually:
+
+```text
+Identity Information
+        │
+        ▼
+Required Verification
+        │
+        ▼
+Authorization Decision
+        │
+        ▼
+Minimum Necessary Result
+```
+
+Authorization to receive a result does not automatically establish authorization to receive the complete underlying identity record.
+
+### Finding
+
+The relationship between authorization, purpose, information requirements, and permitted disclosure requires future specification.
+
+---
+
+# 40. Authorization Context Can Change
+
+### Result
+
+**PASS**
+
+The model supports authorization decisions that change when the context changes.
+
+For example:
+
+```text
+09:00
+Normal Operation
+    ↓
+Normal Authorization
+```
+
+may become:
+
+```text
+10:30
+Emergency Detected
+    ↓
+Emergency Authorization
+```
+
+and later:
+
+```text
+11:15
+Emergency Resolved
+    ↓
+Normal Authorization Restored
+```
+
+### Finding
+
+No fundamental contradiction identified.
+
+The model correctly permits authorization to change without requiring the identity of the Entity to change.
+
+---
+
+# 41. Authorization Lifecycle
+
+### Result
+
+**PASS WITH FUTURE REQUIREMENTS**
+
+The model recognizes lifecycle states for authorization-related objects such as Permission and Restriction.
+
+Potential states include:
+
+```text
+Pending
+Active
+Suspended
+Expired
+Revoked
+Cancelled
+```
+
+### Challenge Finding
+
+Future specifications should define lifecycle relationships between:
+
+```text
+Authority
+Authorization
+Permission
+Restriction
+Delegation
+Override
+Emergency Authorization
+```
+
+The lifecycle of each should remain distinguishable from the identity lifecycle of the Entity.
+
+---
+
+# 42. Authorization Scope
+
+### Result
+
+**PASS WITH FURTHER REQUIREMENTS**
+
+The model consistently treats authorization as scoped.
+
+Scope may include:
+
+```text
+Action
+Resource
+Location
+Time
+Jurisdiction
+Purpose
+Role
+Relationship
+State
+```
+
+An authorization granted for one scope should not automatically be interpreted as authorization outside that scope.
+
+### Finding
+
+This principle should remain foundational.
+
+Future specifications should define how scopes are represented and combined.
+
+---
+
+# 43. Authorization Model Challenge Result
+
+### Result
+
+**PASS WITH FURTHER REQUIREMENTS**
+
+The review of Sections 1–13 of `AUTHORIZATION-MODEL.md` did not identify a fundamental architectural contradiction.
+
+The model successfully maintains distinctions between:
+
+```text
+Identity
+Authority
+Authorization
+Permission
+Restriction
+Capability
+Context
+Action
+Execution
+```
+
+The model also supports:
+
+```text
+Delegation
+Override
+Emergency Authorization
+Multi-Party Authorization
+Time
+Location
+State
+Purpose
+Jurisdiction
+Privacy
+Distributed Information
+```
+
+The primary findings concern precision and future formalization rather than fundamental architectural failure.
+
+---
+
+# 44. Consolidated Authorization Findings
+
+### Confirmed
+
+```text
+Authority is distinct from Authorization
+Permission is distinct from Capability
+Authorization is contextual
+Permission can be constrained by Restriction
+Authorization is scoped
+Authorization can change with context
+Authorization does not guarantee execution
+Human and non-human Entities can be authorized
+Privacy can constrain authorization-related disclosure
+Distributed information can support authorization decisions
+```
+
+### Requires Further Definition
+
+```text
+Permission precedence
+Restriction precedence
+Delegation chains
+Delegation revocation
+Override authority
+Emergency authorization lifecycle
+Multi-party authorization semantics
+Authorization lifecycle
+Authorization scope representation
+Authorization decision states
+Authorization evidence and auditability
+Relationship between authorization and authentication
+Relationship between authorization and verification
+```
+
+### Broader Architectural Question
+
+```text
+Should Context become a reusable ADE semantic structure?
+```
+
+This question should be examined beyond ADE-IF.
+
+---
+
+# 45. No Immediate Authorization Model Changes
+
+The challenge findings do not automatically require modification of `AUTHORIZATION-MODEL.md`.
+
+The current model should remain a **Foundational Draft** while the identified questions are examined against:
+
+* Additional real-world use cases
+* ADE-Core
+* ADE-HTF
+* ADE-LF
+* Additional ADE frameworks
+* Existing authorization standards
+* Security requirements
+* Privacy requirements
+* Governance requirements
+* Interoperability requirements
+
+Changes should be made only when sufficient evidence demonstrates that the foundational model requires modification.
+
+---
+
+# 46. Combined Identity and Authorization Challenge
+
+The Identity Model and Authorization Model should also be examined together.
+
+Conceptually:
+
+```text
+Entity
+   ↓
+Identity
+   ↓
+Verification / Authentication
+   ↓
+Authority / Applicable Policy
+   ↓
+Authorization Context
+   ↓
+Permission + Restriction
+   ↓
+Authorization Decision
+   ↓
+Action
+   ↓
+Execution
+```
+
+The models should preserve the distinction between:
+
+```text
+Who is the Entity?
+        ↓
+Identity
+
+Is the relevant information verified?
+        ↓
+Verification
+
+Has the Entity authenticated where required?
+        ↓
+Authentication
+
+What authority applies?
+        ↓
+Authority
+
+What may the Entity do?
+        ↓
+Authorization
+
+What is specifically allowed?
+        ↓
+Permission
+
+What limits or prohibits the Action?
+        ↓
+Restriction
+
+Can the Action actually occur?
+        ↓
+Execution
+```
+
+### Combined Challenge Result
+
+**PASS WITH FURTHER REQUIREMENTS**
+
+No fundamental contradiction was identified between the Identity Model and Authorization Model during the current challenge.
+
+The combined architecture supports a separation of concerns between identity, verification, authentication, authority, authorization, permission, restriction, and execution.
+
+---
+
+# 47. Open Questions Across the Combined Model
+
+The combined challenge identifies the following areas for future examination:
+
+1. Exact semantic relationship between Identity Reference and Identifier.
+2. Exact relationship between Authority and Authoritative Source.
+3. Minimum information required for Verification results.
+4. Conditions under which Authentication is required.
+5. Formal definition of Authorization Context.
+6. Whether Context should become a reusable ADE-Core concept.
+7. Formal authorization level semantics.
+8. Permission and Restriction precedence.
+9. Delegation chains and revocation.
+10. Override authority and limitations.
+11. Emergency authorization lifecycle.
+12. Multi-party authorization.
+13. Authorization lifecycle states.
+14. Authorization decision representation.
+15. Provenance and auditability.
+16. Privacy-preserving authorization.
+17. Cross-jurisdiction authorization conflicts.
+18. Relationship between authorization and execution.
+19. Relationship between capability and authorization.
+20. Interoperability with existing identity and authorization architectures.
+
+These questions remain open.
+
+---
+
+# 48. Overall Challenge Conclusion
+
+The current ADE-IF Identity Model and Authorization Model have passed the initial foundational challenge against the current use cases.
+
+The challenge has not established that the models are complete.
+
+Instead, it has demonstrated that the current architecture is capable of representing the major relationships required by the tested scenarios while identifying areas where greater semantic precision will eventually be required.
+
+The current development position is therefore:
+
+```text
+Foundational Concepts
+        ↓
+Real-World Use Cases
+        ↓
+Challenge
+        ↓
+Findings
+        ↓
+Further Use Cases
+        ↓
+Detailed Specifications
+        ↓
+Technical Interoperability
+```
+
+The absence of finalized technical mechanisms is intentional.
+
+The purpose of the foundational models is to establish the concepts and relationships that future ADE-IF specifications must preserve.
+
+---
+
+# 49. Foundational Challenge Principle
+
+> **ADE concepts should be challenged through real-world conditions before their relationships are treated as finalized standards.**
+
+The purpose of challenge activity is not simply to confirm that the model works.
+
+It is to discover where the model:
+
+* Fails
+* Becomes ambiguous
+* Creates unnecessary complexity
+* Creates conflicting interpretations
+* Requires additional concepts
+* Requires clearer boundaries
+
+Challenge activity therefore remains an ongoing part of ADE standards development.
+
+---
+
 ## Status
 
-**ADE-IF Challenge Record — Initial Challenge**
+**ADE-IF Challenge Record — Initial Identity and Authorization Challenge**
 
-This document records the results of the first examination of the ADE-IF Identity Model against the current ADE-IF use case.
+This document records the initial examination of:
+
+```text
+IDENTITY-MODEL.md
+USE-CASES.md
+AUTHORIZATION-MODEL.md
+```
+
+The Identity Model and Authorization Model have not been treated as finalized technical standards.
 
 The findings remain open for further examination.
 
