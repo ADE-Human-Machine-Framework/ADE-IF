@@ -2,35 +2,74 @@
 
 ## ADE-IF — Identity Framework
 
-**Status:** Foundational Draft
-**Repository:** ADE-IF
+**Status:** Foundational Development
 **Version:** 0.1.0
 
-### Architectural Origin
+---
+
+## Architectural Origin
 
 The **ADE Human-Machine Framework** was conceived and architected by **Arshad Darius Ebrahim**, the originating Architect of the framework.
 
 Ebrahim established the initial architecture, conceptual model, principles, terminology, and foundational direction of ADE.
 
-The framework is intended as an open foundation for collaborative development, allowing others to contribute to, extend, and develop the standards.
+ADE is intended as an open foundation for collaborative development, allowing others to contribute to, challenge, extend, and develop the standards.
 
 ---
 
-## 1. Purpose
+# 1. What Is ADE-IF?
 
-**ADE-IF — Identity Framework** defines the foundational architecture for representing identity-related information within the ADE Human-Machine Framework.
+**ADE-IF — Identity Framework** establishes the foundational architecture for representing identity-related information within the ADE Human-Machine Framework.
 
-ADE-IF is intended to provide a common semantic foundation for identifying, referencing, and verifying Entities while allowing authoritative information to remain under the control of the systems or jurisdictions responsible for maintaining it.
+ADE-IF provides a common semantic foundation for representing, referencing, verifying, and relating Entities across human and machine systems.
 
-The framework is designed to support human, organizational, digital, device, and other identifiable Entities without requiring all identity information to be stored in a single system.
+It is designed to support:
+
+* Humans
+* Organizations
+* Devices
+* Machines
+* Software systems
+* Digital agents
+* Other identifiable Entities
+
+ADE-IF is designed for distributed environments where authoritative information may remain under the control of different systems, organizations, or jurisdictions.
 
 ---
 
-## 2. Relationship to ADE-Core
+# 2. Why ADE-IF Exists
 
-ADE-IF builds upon the foundational concepts established by ADE-Core.
+Identity information is often fragmented across systems.
 
-These include:
+Different organizations and jurisdictions may maintain authoritative information about the same Entity.
+
+A system requesting information about an Entity should not necessarily need to obtain or duplicate the complete underlying identity record.
+
+ADE-IF therefore establishes a framework for:
+
+```text
+Entity
+   ↓
+Identity Reference
+   ↓
+Authoritative Information
+   ↓
+Verification
+   ↓
+Relevant Result
+```
+
+The objective is to establish a common semantic structure without requiring all identity information to be centralized or duplicated.
+
+---
+
+# 3. ADE-IF and the ADE Architecture
+
+ADE-IF is part of the larger **ADE Human-Machine Framework**.
+
+It builds upon the foundational concepts established by **ADE-Core**.
+
+These include concepts such as:
 
 * Entity
 * Object
@@ -43,63 +82,304 @@ These include:
 * Relationship
 * Intent
 
-Identity information should therefore be represented using the common semantic structures established by ADE-Core.
-
-ADE-IF should extend ADE-Core rather than redefine its foundational concepts.
+ADE-IF extends these concepts for identity-related representation rather than redefining them.
 
 ---
 
-## 3. Identity as a Reference
+# 4. The ADE-IF Information Flow
 
-ADE-IF distinguishes between an **Entity** and the information used to identify or reference that Entity.
-
-An identifier may provide a reference to an Entity without requiring every system to possess or store all information associated with that Entity.
-
-Conceptually:
+A reader should understand ADE-IF through the following progression:
 
 ```text
-Entity
-   │
-   ├── Identifier
-   │
-   ├── Attributes
-   │
-   ├── Relationships
-   │
-   └── Authoritative Information Sources
+ENTITY
+   ↓
+IDENTITY REFERENCE
+   ↓
+AUTHORITATIVE SOURCE
+   ↓
+VERIFICATION
+   ↓
+AUTHORIZATION / APPLICABLE CONDITIONS
+   ↓
+PERMITTED ACTION
 ```
 
-An identifier therefore does not necessarily contain the complete identity record.
+This does **not** mean that every implementation must follow one technical process.
+
+It represents the underlying semantic relationship between the concepts.
+
+The purpose of ADE is to allow human and machine systems to understand the same concepts without requiring each system to invent its own interpretation.
 
 ---
 
-## 4. Distributed Identity Information
+# 5. Start With the Foundational Model
 
-Identity-related information may exist across multiple authoritative systems.
+The foundational model defines the concepts and relationships that form the basis of ADE-IF.
 
-For example:
+### Read first:
+
+**[AUTHORIZATION-MODEL.md](AUTHORIZATION-MODEL.md)**
+
+The foundational model should be treated as the primary architectural reference.
+
+It defines the concepts before implementation mechanisms, serialization formats, or individual technologies are introduced.
+
+---
+
+# 6. Challenge the Foundation
+
+ADE does not treat a foundational model as complete simply because it has been written.
+
+The model is intentionally subjected to architectural challenge.
+
+The Challenge Record documents the structured examination of the Authorization Model.
+
+### Read next:
+
+**[AUTHORIZATION-CHALLENGE-RECORD.md](AUTHORIZATION-CHALLENGE-RECORD.md)**
+
+The Challenge Record answers:
+
+> **What happens when the foundational model is challenged?**
+
+The purpose is to identify:
+
+* Contradictions
+* Missing distinctions
+* Boundary conditions
+* Architectural weaknesses
+* Unresolved questions
+* Areas requiring future specification
+
+The challenge process is separate from the foundational model so that the model is not continually modified simply because questions arise.
+
+---
+
+# 7. Future Work
+
+Not every question identified during architectural challenge represents a defect.
+
+Some questions require:
+
+* Further architectural analysis
+* Community discussion
+* Governance decisions
+* Cross-framework coordination
+* Future specifications
+* Implementation profiles
+* Interoperability work
+
+These questions are therefore maintained separately.
+
+### Read next:
+
+**[AUTHORIZATION-FUTURE-WORK.md](AUTHORIZATION-FUTURE-WORK.md)**
+
+This document contains the future-work queue generated from the completed challenge.
+
+Each unresolved question receives a permanent `AFW-###` identifier so that it can be tracked independently over time.
+
+---
+
+# 8. Current Architectural State
+
+The current development flow is:
 
 ```text
-                    Entity
-                      │
-              ┌───────┼────────┐
-              │       │        │
-              ▼       ▼        ▼
-          Jurisdiction  Organization  Other Authority
-              │       │        │
-              ▼       ▼        ▼
-           Information Sources
+ADE-IF
+  │
+  ▼
+Foundational Model
+  │
+  │ AUTHORIZATION-MODEL.md
+  ▼
+Architectural Challenge
+  │
+  │ AUTHORIZATION-CHALLENGE-RECORD.md
+  ▼
+Findings
+  │
+  ├── Foundational Defects
+  │
+  └── Future Questions
+          │
+          │ AUTHORIZATION-FUTURE-WORK.md
+          ▼
+Future Specification
 ```
 
-ADE-IF allows systems to determine where relevant information is maintained rather than requiring all information to be duplicated into a single identity repository.
+The important distinction is:
 
-A system requesting identity-related information should obtain only the information necessary for the authorized purpose.
+```text
+FOUNDATIONAL MODEL
+        ≠
+CHALLENGE RECORD
+        ≠
+FUTURE WORK
+```
+
+Each document has a different purpose.
 
 ---
 
-## 5. Authority and Ownership
+# 9. Current Challenge Disposition
 
-ADE-IF recognizes that different information may have different authoritative sources.
+The completed repository-level challenge of the Authorization Model identified:
+
+| Result                                         | Current Status |
+| ---------------------------------------------- | -------------: |
+| Foundational defects                           |          **0** |
+| Future specification / clarification questions |         **22** |
+| Immediate foundational model changes required  |          **0** |
+
+The 22 unresolved questions are therefore maintained as future work rather than being scattered through the foundational model.
+
+This allows the architecture to remain stable while development continues.
+
+---
+
+# 10. How to Read This Repository
+
+For a new reader, the recommended path is:
+
+### Step 1 — Understand ADE-IF
+
+Read this README.
+
+Understand:
+
+* What ADE-IF is
+* Why it exists
+* Its relationship to ADE-Core
+* The overall information flow
+
+### Step 2 — Read the Foundation
+
+Read:
+
+**[AUTHORIZATION-MODEL.md](AUTHORIZATION-MODEL.md)**
+
+This establishes the foundational concepts.
+
+### Step 3 — Examine the Challenge
+
+Read:
+
+**[AUTHORIZATION-CHALLENGE-RECORD.md](AUTHORIZATION-CHALLENGE-RECORD.md)**
+
+This shows how the model was tested.
+
+### Step 4 — Review Future Work
+
+Read:
+
+**[AUTHORIZATION-FUTURE-WORK.md](AUTHORIZATION-FUTURE-WORK.md)**
+
+This identifies questions that remain for future specification and development.
+
+### Step 5 — Participate
+
+Future contributors can then:
+
+* Examine existing concepts
+* Challenge assumptions
+* Discuss unresolved questions
+* Propose improvements
+* Develop specifications
+* Create implementation profiles
+* Contribute use cases
+* Participate in interoperability work
+
+---
+
+# 11. Foundation, Challenge, and Development
+
+ADE uses a deliberate separation between three activities.
+
+## Foundation
+
+Defines the current architectural model.
+
+```text
+What does ADE mean?
+```
+
+## Challenge
+
+Tests whether the model remains coherent under difficult conditions.
+
+```text
+Does the model hold together?
+```
+
+## Future Development
+
+Addresses questions that require additional specification or governance.
+
+```text
+What still needs to be developed?
+```
+
+Together:
+
+```text
+FOUNDATION
+     ↓
+CHALLENGE
+     ↓
+FINDINGS
+     ↓
+FUTURE WORK
+     ↓
+SPECIFICATION
+```
+
+---
+
+# 12. What ADE-IF Does Not Attempt to Do
+
+ADE-IF is not intended to force every implementation into one technical identity architecture.
+
+It does not require:
+
+* A single centralized identity database
+* One identity provider
+* One credential technology
+* One wallet architecture
+* One authentication mechanism
+* One serialization format
+* One implementation language
+* One organizational structure
+
+The framework establishes common meaning and relationships.
+
+Specific technologies and implementation mechanisms may be defined through future ADE specifications and profiles.
+
+---
+
+# 13. Human and Machine Understanding
+
+ADE-IF is designed as part of the broader ADE objective of establishing a common semantic foundation for **human and machine understanding**.
+
+The objective is not simply to exchange data.
+
+The objective is to allow independent systems to represent the same underlying concepts consistently.
+
+```text
+Human Concept
+      ↓
+ADE Semantic Model
+      ↓
+Machine Representation
+```
+
+Different implementations may use different technologies while retaining the same underlying meaning.
+
+---
+
+# 14. Distributed Authority and Information
+
+ADE-IF recognizes that different information about an Entity may have different authoritative sources.
 
 For example:
 
@@ -107,213 +387,27 @@ For example:
 Entity
   │
   ├── Citizenship
-  │      └── Authoritative Jurisdiction
+  │      └── Jurisdiction
   │
   ├── Employment
-  │      └── Authoritative Organization
+  │      └── Organization
   │
-  ├── Professional Credential
-  │      └── Authoritative Issuer
+  ├── Credential
+  │      └── Issuer
   │
   └── Device Identity
          └── Authoritative System
 ```
 
-The system responsible for maintaining a particular attribute or record may therefore be different from the system requesting that information.
-
-ADE-IF does not assume that one organization or jurisdiction is authoritative for every aspect of an Entity's identity.
+ADE-IF therefore does not assume that one organization or jurisdiction must control every aspect of an Entity's identity.
 
 ---
 
-## 6. Reference Rather Than Duplication
+# 15. Privacy and Minimum Necessary Information
 
-ADE-IF is intended to support reference-based information exchange where appropriate.
-
-A requesting system may receive:
-
-* A verified identifier
-* A reference to an authoritative source
-* A specific verified attribute
-* A verification result
-* Other information required for the authorized purpose
-
-without necessarily receiving the complete underlying identity record.
+ADE-IF supports the principle that systems should obtain only information necessary for an authorized purpose.
 
 Conceptually:
-
-```text
-Request
-   ↓
-Identity Reference
-   ↓
-Authoritative Source
-   ↓
-Authorized Information
-   ↓
-Requesting System
-```
-
-This approach may reduce unnecessary duplication of sensitive identity information.
-
----
-
-## 7. Minimum Necessary Information
-
-ADE-IF should support the principle that systems should obtain only the identity information necessary for the purpose being performed.
-
-For example, a system may need to establish:
-
-```text
-Is this Entity authorized?
-```
-
-without requiring:
-
-```text
-Full identity record
-Complete address
-Unrelated attributes
-Unnecessary historical information
-```
-
-The required information should therefore be determined by the purpose and authorization of the request.
-
----
-
-## 8. Verification and Authorization
-
-ADE-IF distinguishes between:
-
-**Identity**
-
-> What Entity is being referenced?
-
-**Verification**
-
-> What evidence or authoritative source supports the claimed identity or attribute?
-
-**Authorization**
-
-> Is this Entity, system, or actor permitted to perform the requested operation?
-
-These concepts should not automatically be treated as equivalent.
-
-For example:
-
-```text
-Identity
-    ↓
-Verification
-    ↓
-Authorization
-    ↓
-Permitted Action
-```
-
-A system may be able to establish that an Entity is authorized for a particular operation without receiving the Entity's complete identity information.
-
----
-
-## 9. Human and Non-Human Entities
-
-ADE-IF should support identity representation for different classes of Entities.
-
-Examples include:
-
-* Humans
-* Organizations
-* Devices
-* Machines
-* Software systems
-* Digital agents
-* Other identifiable Entities
-
-Where appropriate, ADE-IF may distinguish the nature or class of the Entity providing, requesting, or participating in information.
-
-This allows systems to distinguish between human, organizational, device, and other sources without assuming that every identity is a human identity.
-
----
-
-## 10. Authorization Levels
-
-ADE-IF may support structured authorization levels where different actors have different authority over an operation.
-
-For example:
-
-```text
-Authorization Level 1
-        │
-        ├── Full authorized control
-        │
-        ▼
-Authorization Level 2
-        │
-        ├── Limited control
-        │
-        ▼
-Authorization Level 3
-        │
-        ├── Operational control
-        │
-        ▼
-Authorization Level 4
-        │
-        └── Restricted control
-```
-
-The exact meaning and number of authorization levels should be defined through future ADE standards rather than assumed by ADE-Core.
-
-Authorization may also support multiple authorized actors acting together where required.
-
-For example:
-
-```text
-Human Level 3
-      +
-Human Level 3
-      ↓
-Emergency Authorization
-      ↓
-Pause System
-```
-
-Such mechanisms may be particularly relevant to safety-critical or autonomous systems.
-
----
-
-## 11. Identity Without Continuous Possession
-
-ADE-IF does not require an Entity to continuously carry or present a complete identity credential.
-
-A verification process may instead establish identity or authorization through an authorized interaction with an authoritative information source.
-
-Conceptually:
-
-```text
-Entity
-   ↓
-Identity Claim
-   ↓
-Verification Request
-   ↓
-Authoritative Source
-   ↓
-Verification Result
-```
-
-This may allow identity verification even when an Entity does not possess a particular digital identity credential.
-
-The specific mechanisms for such verification are outside this foundational document.
-
----
-
-## 12. Privacy and Data Minimization
-
-ADE-IF should support privacy-preserving identity architecture.
-
-Identity systems should avoid unnecessary disclosure or duplication of information.
-
-Where possible:
 
 ```text
 Need
@@ -325,7 +419,7 @@ Verification
 Result
 ```
 
-should be preferred over:
+rather than:
 
 ```text
 Need
@@ -335,147 +429,38 @@ Complete Identity Record
 Copy Everything
 ```
 
-Privacy requirements, data protection obligations, and jurisdiction-specific requirements remain applicable.
+Detailed privacy, data protection, selective disclosure, and jurisdiction-specific requirements may be addressed through future specifications.
 
 ---
 
-## 13. Cross-Jurisdiction Identity
+# 16. Human and Non-Human Entities
 
-An Entity may have identity-related information maintained by multiple jurisdictions.
+ADE-IF is intended to support identity representation for both human and non-human Entities.
 
-For example:
+Examples include:
 
-```text
-Entity
-  │
-  ├── Jurisdiction A
-  │      └── Identity Information
-  │
-  └── Jurisdiction B
-         └── Identity Information
-```
+* Humans
+* Organizations
+* Devices
+* Machines
+* Software systems
+* Digital agents
+* Other identifiable Entities
 
-ADE-IF should allow these sources to remain independently authoritative while providing a common structure for referencing and relating the information.
-
-The existence of multiple authoritative sources does not necessarily require those sources to merge their underlying databases.
+This allows ADE-IF to support human-machine systems without assuming that every identity belongs to a human.
 
 ---
 
-## 14. Identity References
+# 17. Future Development Areas
 
-ADE-IF may use references that indicate the existence of related information maintained elsewhere.
-
-Conceptually:
-
-```text
-ADE Identity Reference
-        │
-        ├── Source
-        ├── Identifier
-        ├── Authority
-        ├── Information Type
-        └── Access / Authorization Conditions
-```
-
-The reference may indicate that additional information exists without exposing that information to every system that encounters the reference.
-
----
-
-## 15. Identity and ADE Relationships
-
-Identity information may participate in ADE Relationships.
-
-For example:
-
-```text
-Person
-   │
-   ├── citizen of ──> Jurisdiction
-   │
-   ├── employed by ──> Organization
-   │
-   └── authorized for ──> Operation
-```
-
-The relationships themselves may have:
-
-* Time
-* Location
-* Source
-* Verification status
-* Authorization conditions
-* Other contextual information
-
-These relationships should remain compatible with ADE-Core.
-
----
-
-## 16. Relationship to Self-Sovereign Identity
-
-ADE-IF may be compatible with principles associated with **Self-Sovereign Identity (SSI)** while not requiring a single identity architecture.
-
-SSI commonly emphasizes concepts such as:
-
-* Individual control
-* Portable credentials
-* Verifiable claims
-* Selective disclosure
-* Decentralized verification
-
-ADE-IF approaches identity from a broader architectural perspective.
-
-It allows identity information to remain with authoritative sources while providing standardized references, verification, relationships, and authorization mechanisms.
-
-ADE-IF therefore does not require identity information to be:
-
-* Centralized
-* Fully duplicated
-* Stored exclusively in a user's wallet
-* Controlled exclusively by one authority
-
-Specific compatibility with SSI technologies may be evaluated through future ADE profiles or implementations.
-
----
-
-## 17. Security and Trust
-
-Identity information and verification mechanisms must account for security and trust.
-
-Future ADE specifications may define mechanisms for:
-
-* Authentication
-* Verification
-* Cryptographic proof
-* Credential validation
-* Source trust
-* Authorization
-* Revocation
-* Expiration
-* Auditability
-
-These mechanisms are intentionally not fully defined in this foundational draft.
-
----
-
-## 18. Foundational Principle
-
-> **Identity should establish a trusted reference to an Entity without requiring unnecessary duplication or disclosure of information.**
-
-ADE-IF is intended to provide a common semantic foundation through which identity, verification, authority, and authorization can be represented across independent systems and jurisdictions.
-
----
-
-## 19. Future Development
-
-Future ADE-IF specifications may define:
+Future ADE-IF specifications may address areas including:
 
 * Identity identifiers
 * Identity classes
-* Human and non-human classification
 * Identity claims
-* Verification mechanisms
+* Verification
 * Authentication
-* Authorization levels
+* Authorization
 * Delegated authority
 * Multi-party authorization
 * Emergency authorization
@@ -490,12 +475,137 @@ Future ADE-IF specifications may define:
 * Provenance
 * Confidence
 * Trust models
-* Interoperability with existing identity standards
+* Interoperability
+* Machine and autonomous-system identity
 
-These mechanisms should be developed through the ADE standards-development process and tested against real-world use cases.
+These areas should be developed through the ADE standards-development process rather than prematurely embedded into the foundational model.
 
 ---
 
-**ADE Human-Machine Framework**
+# 18. Repository Development Model
 
-*An open architecture for human and machine understanding.*
+ADE-IF is being developed as an open standards architecture.
+
+The repository may therefore contain several types of artifacts as development progresses:
+
+```text
+Foundational Models
+        │
+        ├── Definitions
+        ├── Principles
+        └── Core Relationships
+                │
+                ▼
+Architectural Challenges
+        │
+        ├── Validation
+        ├── Findings
+        └── Disposition
+                │
+                ▼
+Future Work
+        │
+        ├── Open Questions
+        ├── Specifications
+        ├── Profiles
+        └── Governance
+                │
+                ▼
+Implementation
+        │
+        ├── Examples
+        ├── Reference Implementations
+        └── Interoperability
+```
+
+The structure may evolve as ADE-IF develops.
+
+---
+
+# 19. Contributing to ADE-IF
+
+ADE-IF is intended to develop through open architectural discussion and contribution.
+
+Contributors should distinguish between:
+
+### Challenging the model
+
+Identifying a contradiction, ambiguity, missing distinction, or architectural limitation.
+
+### Proposing a change
+
+Presenting a reasoned improvement to the architecture.
+
+### Developing a specification
+
+Defining the detailed rules necessary to implement an established concept.
+
+### Implementing a specification
+
+Building technology that follows an established ADE definition.
+
+These are related but separate activities.
+
+---
+
+# 20. Architectural Stability
+
+The foundational model should not be changed simply because an implementation question or future specification question arises.
+
+The preferred progression is:
+
+```text
+Question
+   ↓
+Analysis
+   ↓
+Challenge
+   ↓
+Finding
+   ↓
+Future Work
+   ↓
+Specification
+   ↓
+Accepted Change
+```
+
+This provides architectural stability while still allowing ADE to evolve.
+
+---
+
+# 21. Current Status
+
+**ADE-IF is an active foundational development repository.**
+
+The architecture is being developed incrementally.
+
+The current repository should therefore be understood as:
+
+```text
+Foundational Architecture
+        +
+Architectural Validation
+        +
+Future Standards Development
+```
+
+rather than as a completed final standard.
+
+---
+
+# 22. Architectural Origin and Open Development
+
+The ADE Human-Machine Framework originated with **Arshad Darius Ebrahim**.
+
+The architecture is being developed as an open standards foundation so that interested individuals, organizations, technical communities, and other stakeholders can examine the concepts, challenge them, contribute ideas, and participate in future development.
+
+The originating architecture establishes the foundation.
+
+The standards-development process provides the path for its continued evolution.
+
+---
+
+# ADE Human-Machine Framework
+
+**An open architecture for human and machine understanding.**
