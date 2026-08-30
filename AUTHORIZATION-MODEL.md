@@ -466,7 +466,7 @@ Authorization must be established within the applicable scope, context, and cond
 ---
 ## 4. Permission
 
-A **Permission** represents an allowed capability associated with an Entity within a defined authorization context.
+A **Permission** represents an authorization grant allowing an Entity to perform a defined Action within a specified context.
 
 Permission describes what an Entity is permitted to do, access, receive, modify, approve, interrupt, cancel, or otherwise participate in.
 
@@ -484,7 +484,7 @@ Allowed Action
 
 A Permission should not be interpreted as a general authorization to perform all Actions.
 
-Instead, it should identify the specific capability or set of capabilities granted within a defined scope.
+Instead, it should identify the specific Action or set of Actions permitted within a defined scope.
 
 ---
 
@@ -827,7 +827,7 @@ Purpose may therefore form part of the authorization context.
 
 ### 4.10 Foundational Principle
 
-ADE-IF treats Permission as a defined capability granted to an Entity within a particular authorization context.
+ADE-IF treats Permission as an authorization grant that allows an Entity to perform defined Actions within a particular authorization context.
 
 Conceptually:
 
@@ -845,7 +845,7 @@ Permission
 Allowed Action
 ```
 
-A Permission should therefore be specific enough to establish what is allowed while remaining distinct from identity, authority, capability, and the successful execution of an Action.
+A Permission should therefore be specific enough to establish what is allowed while remaining distinct from Identity, Authority, Ability, Authorization, and the successful execution of an Action.
 
 ---
 ## 5. Restriction
@@ -1223,7 +1223,7 @@ Restriction Temporarily Overridden
 
 An override should itself be treated as an authorized Action subject to defined requirements.
 
-The existence of an override capability should not imply unrestricted authority.
+The existence of an override Ability should not imply unrestricted Authority.
 
 ---
 
@@ -1284,7 +1284,7 @@ The status of a Restriction should remain distinguishable from the identity or a
 
 ### 5.15 Restriction Is Not Identity
 
-A Restriction should not be interpreted as a statement about the identity, value, capability, or general trustworthiness of an Entity.
+A Restriction should not be interpreted as a statement about the Identity, value, Ability, or general trustworthiness of an Entity.
 
 For example:
 
@@ -2486,7 +2486,7 @@ Override   Override
 Allowed    Not Allowed
 ```
 
-The existence of an Override capability does not necessarily mean that the Override may be exercised at any time.
+The existence of an Override Ability does not necessarily mean that the Override may be exercised at any time.
 
 ---
 
@@ -3411,7 +3411,7 @@ The specific meanings, requirements, and governance of emergency authorization l
 
 An emergency authorization level should describe the scope of permitted emergency Actions.
 
-It should not be interpreted as a measure of the value, identity certainty, capability, or general trustworthiness of an Entity.
+It should not be interpreted as a measure of the value, identity certainty, Ability, or general trustworthiness of an Entity.
 
 ---
 
@@ -4376,12 +4376,12 @@ Defined Emergency Action
 
 An automated system may be authorized to perform predefined emergency Actions without requiring human intervention where such authority has been established.
 
-However, automated capability should not itself be interpreted as Emergency Authority.
+However, automated Ability should not itself be interpreted as Emergency Authority.
 
 Conceptually:
 
 ```text
-Automation Capability
+Automation Ability
         ≠
 Emergency Authority
         ≠
@@ -5213,7 +5213,7 @@ Authorization Decision
 
 Conditions allow ADE-IF to represent authorization that depends upon time, location, state, purpose, jurisdiction, relationships, safety, emergency circumstances, multiple authorities, and other defined requirements.
 
-Authorization Conditions should remain distinguishable from identity, authority, permission, restriction, capability, and successful execution of an Action.
+Authorization Conditions should remain distinguishable from Identity, Authority, Permission, Ability, Authorization, and the successful execution of an Action.
 
 ---
 ## 12. Authorization Decisions
@@ -5579,7 +5579,7 @@ Authorization Decision
 
 ### 12.12 Decision and Permission
 
-A Permission may provide an allowed capability that contributes to an Authorization Decision.
+A Permission may identify an Action or set of Actions that may be permitted and may contribute to an Authorization Decision.
 
 For example:
 
@@ -6103,9 +6103,9 @@ The decision should remain distinguishable from:
 * Identity
 * Authentication
 * Authority
+* Ability
 * Permission
 * Restriction
-* Capability
 * Action Execution
 
 Authorization Decisions should be contextual, traceable where appropriate, and capable of representing uncertainty or unavailable information without automatically converting those conditions into denial.
