@@ -11,7 +11,7 @@
 
 ## 1. Purpose
 
-This document records the initial technical challenge of the ADE Identity Framework (ADE-IF) against the real-world scenarios defined in `USE-CASES.md`.
+This document records the initial technical challenge of the ADE Identity & Authorization Framework (ADE-IF) against the real-world scenarios defined in `USE-CASES.md`.
 
 The purpose of the challenge is to determine whether the concepts defined by the ADE-IF Identity Model and Authorization Model can represent practical identity, verification, authorization, privacy, distributed information, and cross-jurisdiction situations.
 
@@ -905,7 +905,7 @@ Authority
 Authorization
 Permission
 Restriction
-Capability
+Ability
 Context
 Action
 Execution
@@ -943,25 +943,25 @@ This distinction should remain foundational.
 
 ---
 
-# 29. Permission Is Not Capability
+# 29. Permission Is Not Ability
 
 ### Result
 
 **PASS**
 
-The model distinguishes technical capability from permission.
+The model distinguishes an Entity's Ability from Permission.
 
 Conceptually:
 
 ```text
-Capability
+Ability
     ≠
 Permission
     ≠
 Authorization
 ```
 
-An Entity or system may technically be capable of performing an Action without being authorized to do so.
+An Entity or system may have the Ability to perform an Action without being authorized to do so.
 
 Conversely, an Entity may be authorized to request an Action without possessing the technical capability to execute it.
 
@@ -1495,7 +1495,7 @@ Authority
 Authorization
 Permission
 Restriction
-Capability
+Ability
 Context
 Action
 Execution
@@ -1527,7 +1527,7 @@ The primary findings concern precision and future formalization rather than fund
 
 ```text
 Authority is distinct from Authorization
-Permission is distinct from Capability
+Permission is distinct from Ability
 Authorization is contextual
 Permission can be constrained by Restriction
 Authorization is scoped
@@ -1681,7 +1681,7 @@ The combined challenge identifies the following areas for future examination:
 16. Privacy-preserving authorization.
 17. Cross-jurisdiction authorization conflicts.
 18. Relationship between authorization and execution.
-19. Relationship between capability and authorization.
+19. Relationship between Ability and authorization.
 20. Interoperability with existing identity and authorization architectures.
 
 These questions remain open.
