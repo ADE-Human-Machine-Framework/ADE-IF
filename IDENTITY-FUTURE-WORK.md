@@ -1,6 +1,6 @@
 # ADE-IF — Identity Future Work Queue
 
-**Framework:** ADE-IF — Identity Framework
+**Framework:** ADE-IF — Identity & Authorization Framework
 **Document:** Identity Future Work Queue
 **Status:** Foundational Draft
 **Version:** 0.1.0
