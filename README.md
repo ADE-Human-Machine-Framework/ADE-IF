@@ -21,7 +21,7 @@ ADE is intended as an open foundation for collaborative development, allowing ot
 
 **ADE-IF — Identity & Authorization Framework** establishes the foundational architecture for representing identity and authorization-related information within the ADE Human-Machine Framework.
 
-ADE-IF provides a common semantic foundation for representing, referencing, identifying, verifying, and relating Entities, as well as determining what actions may be permitted under applicable conditions.
+ADE-IF provides a common semantic foundation for representing, referencing, identifying, verifying, and relating Entities, as well as determining what Actions may be permitted under applicable conditions.
 
 ADE-IF is designed to support:
 
@@ -50,7 +50,7 @@ What information establishes or supports that Identity?
 
 Can the relevant information be verified?
 
-Who has authority?
+Who has Authority?
 
 What is this Entity permitted to do?
 
@@ -101,6 +101,9 @@ These include concepts such as:
 * Location
 * Relationship
 * Intent
+* Authority
+* Ability
+* Authorization
 
 ADE-IF extends these concepts for Identity and Authorization-related representation rather than redefining their foundational meaning.
 
@@ -143,7 +146,7 @@ Verification
 
 ## Authorization
 
-Authorization establishes how permitted actions and applicable conditions can be represented.
+Authorization establishes how authorization decisions, permitted Actions, and applicable conditions can be represented.
 
 ```text
 Entity
@@ -487,6 +490,12 @@ It does not require:
 * One organizational structure
 
 The framework establishes common meaning and relationships.
+
+ADE-IF distinguishes between:
+
+* **Ability** — what an Entity can do.
+* **Permission** — what an Entity is permitted to do within a defined authorization context.
+* **Authorization** — the determination that a specific Action is permitted or denied within that context.
 
 Specific technologies and implementation mechanisms may be defined through future ADE specifications and implementation profiles.
 
