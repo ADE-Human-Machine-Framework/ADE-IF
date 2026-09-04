@@ -43,7 +43,7 @@ No foundational model change should be made solely because an item appears in th
 
 ### Architectural Question
 
-How should Permission and technical Capability be formally distinguished?
+How should Permission and Ability be formally distinguished?
 
 ### Why It Matters
 
@@ -57,7 +57,7 @@ No change to the foundational model.
 
 ### Future Work
 
-Define the relationship between Permission, Capability, Authorization, and Action in a future specification or terminology document.
+Define the relationship between Permission, Ability, Authorization, and Action in a future specification or terminology document.
 
 ---
 
